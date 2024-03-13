@@ -16,10 +16,10 @@ variable "common_tags" {
   default = {
     "id"             = "2127"
     "owner"          = "Jones"
-    "teams"          = "Shushu's Boutique"
+    "teams"          = "Shushu's Bridal Boutique"
     "environment"    = "dev"
     "project"        = "s3-bucket"
-    "create_by"      = "Jones-Terraform"
+    "create_by"      = "Shushu -Terraform"
     "cloud_provider" = "aws"
   }
 }
