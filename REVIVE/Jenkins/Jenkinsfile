@@ -12,9 +12,9 @@ pipeline {
         timestamps()
     }
     
-    triggers {
-        githubWebhook()
-    }
+    //triggers {
+       // githubWebhook()
+    //}
     
     parameters {
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Enter the name of the branch')
