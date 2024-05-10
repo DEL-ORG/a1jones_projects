@@ -10,21 +10,18 @@ pipeline {
         disableConcurrentBuilds()
         timeout(time: 10, unit: 'MINUTES')
         timestamps()
-
+        
         triggers {
             githubWebhook()
         }
     }
     
-    
     parameters {
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Enter the name of the branch')
     }
 
-}
-
-stages {
-       stage('Clone Repository') {
+    stages {
+        stage('Clone Repository') {
             steps {
                 script {
                     git credentialsId: 'jenkins-github-new',
@@ -32,9 +29,8 @@ stages {
                         branch: "${params.BRANCH_NAME}"
                 }
             }
-       }
-       
-        
+        }
+
         stage('Login to DockerHub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'Dockerhub-Jenkins',
@@ -46,4 +42,5 @@ stages {
                 }
             }
         }
+    }
 }
