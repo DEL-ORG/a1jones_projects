@@ -10,10 +10,10 @@ pipeline {
         disableConcurrentBuilds()
         timeout(time: 10, unit: 'MINUTES')
         timestamps()
-        
-        triggers {
-            githubWebhook()
-        }
+    }
+    
+    triggers {
+        githubWebhook()
     }
     
     parameters {
