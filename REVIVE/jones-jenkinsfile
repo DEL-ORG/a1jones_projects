@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    environment {
+        docker_hub_credential = credentials('Dockerhub-Jenkins')
+        github_credential = credentials('jenkins-github-new')
+    }
+    
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '7'))
+        disableConcurrentBuilds()
+        timeout(time: 10, unit: 'MINUTES')
+        timestamps()
+    }
+    
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Enter the name of the branch')
+    }
+
+}
+
+stages {
+       stage('Clone Repository') {
+            steps {
+                script {
+                    git credentialsId: 'jenkins-github-new',
+                        url: 'https://github.com/DEL-ORG/a1jones_projects.git',
+                        branch: "${params.BRANCH_NAME}"
+                }
+            }
+       }
+       
+        
+        stage('Login to DockerHub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'Dockerhub-Jenkins',
+                     usernameVariable: 'DOCKERHUB_USERNAME',
+                     passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                    sh """
+                        docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+                    """
+                }
+            }
+        }
+}

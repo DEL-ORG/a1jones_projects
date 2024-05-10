@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# To avoid any pop up windows while the scrip is running, update, upgrade and reboot the system to update the kernel before running the script
+# To avoid any pop up windows while the script is running, update, upgrade and reboot the system to update the kernel before running the script
 # ​sudo apt update
 # sudo apt upgrade -y
 # Reboot the system to load the new kernel version without prompting
