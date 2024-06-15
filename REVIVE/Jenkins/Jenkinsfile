@@ -43,5 +43,21 @@ pipeline {
                 }
             }
         }
+        stage('unit-test ui') {
+            agent {
+             docker {
+               image 'babeque2/ui-maven:v1.0'
+               args '-u root:root'
+            }    
+        } 
+            steps {
+                sh '''
+            cd REVIVE/src/ui
+            mvn test -DskipTests=true
+                '''
+            }       
+        }
+
+        
     }
 }
