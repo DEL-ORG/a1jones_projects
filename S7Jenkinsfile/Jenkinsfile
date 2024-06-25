@@ -1,12 +1,12 @@
 pipeline {
     agent any
 
-   options {
-  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '3', numToKeepStr: '3')
-  disableConcurrentBuilds()
-  timestamps
-  timeout(time: 1, unit: 'NANOSECONDS')
-}
+    options {
+        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '3', numToKeepStr: '3')
+        disableConcurrentBuilds()
+        timestamps()
+        timeout(time: 1, unit: 'NANOSECONDS')
+    }
 
     stages {
         stage('Build') {
@@ -53,6 +53,24 @@ pipeline {
                     echo "Cleanup complete"
                 '''
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'This will always run after the build'
+        }
+        success {
+            echo 'This will run only if the build succeeds'
+        }
+        failure {
+            echo 'This will run only if the build fails'
+        }
+        unstable {
+            echo 'This will run only if the build is unstable'
+        }
+        aborted {
+            echo 'This will run only if the build is aborted'
         }
     }
 }
